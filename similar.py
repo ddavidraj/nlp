@@ -11,6 +11,7 @@ from xml.etree.ElementTree import parse
 
 namelist=['Dipesh','Abdul','Ram','Choi','Dave','abd']
 namelist1=[]
+dict1={}
 
 def similar(a, b):
     return SequenceMatcher(None, a, b).ratio()
@@ -25,6 +26,10 @@ def buildnamelist():
         namelist1.append(first_name)
         last_name=item.findtext('SECOND_NAME')
         namelist1.append(last_name)
+        dataid=item.findtext('DATAID')
+        dict1[first_name]=dataid
+        dict1[last_name]=dataid
+        
     print(namelist1)
         
         #print(name)
@@ -45,7 +50,8 @@ def listnames(b):
             #print((name,result))
             
             
-            newlist.append(tuple((name,result)))
+            newlist.append(tuple((name,result,dict1[name])))
+            
         #print(newlist)
     
     return newlist
@@ -56,5 +62,5 @@ def shownames(a):
     print(names)
     for i in names:
         #print("name {1} is {2} percent match".format(i[0],float(i[1])*100))
-        print(i[0]+ " matches " + str(i[1] *100) + "percent")
+        print(i[0]+ " matches " + str(i[1] *100) + " percent " +" dataid id is " + i[2])
     
